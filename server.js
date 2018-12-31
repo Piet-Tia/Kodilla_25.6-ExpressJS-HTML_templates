@@ -1,14 +1,27 @@
 var express = require('express');
 var app = express();
 
+app.set('view engine', 'pug');
+app.set('views','./views');
+
 app.use('/store', function(req, res, next){
     console.log('Jestem pośrednikiem między żądaniem a odpowiedzią!');
     next();
 });
 
-
-
 app.use(express.static('assets'));
+
+app.get('/first-template', function(req, res){
+    res.render('first-template');
+});
+
+app.get('/auth/google', function(req, res){
+    res.render('google-auth');
+});
+
+app.get('/auth/logged_in', function(req, res){
+    res.render('logged_in');
+});
 
 app.get('/', function (req, res) {
     res.sendFile('/index.html')
